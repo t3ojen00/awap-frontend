@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Form</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+      }
+
+      #background-img {
+        position: fixed;
+
+        width: 100%;
+        height: 100%;
+        /* z-index: 1;  */
+        /* opacity: 0.5;  */
+      }
+
+      form {
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        max-width: 400px;
+        width: 100%;
+        z-index: 1;
+      }
+
+      label,
+      input,
+      button {
+        display: block;
+        margin-bottom: 10px;
+      }
+      input[type="text"],
+      input[type="password"],
+      input[type="email"] {
+        width: 80%;
+        padding: 8px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        background-color: #ffc107;
+        color: #333;
+        padding: 0px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      button:hover {
+        background-color: #dfae1d;
+      }
+      h1,
+      .logo_name {
+        color: #ffc107;
+        font-weight: bold;
+        font-size: 24px;
+        letter-spacing: 2px;
+        white-space: nowrap;
+      }
+      #success-message {
+        color: green;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      src="https://t4.ftcdn.net/jpg/02/71/50/69/360_F_271506927_WWFfd92jDIIDx6DgMflakU14o5jRPgBm.jpg"
+      alt="Background Image"
+      id="background-img"
+    />
+
+    <form method="POST" action="/login/group2" id="register">
+      <p><a href="index.html">HOME PAGE</a></p>
+      <h1 class="logo_name">G2</h1>
+      <h1>REGISTTER</h1>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" name="password" required />
+
+      <button type="submit"><h3>Submit</h3></button>
+      <div id="success-message" style="display: none">
+        Registration successful!
+      </div>
+      <p>Do you have already account? <a href="login.html">Login</a></p>
+    </form>
+  </body>
+</html>
