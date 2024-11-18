@@ -72,6 +72,7 @@ getShowStartTime() {
 
 export {Movie}
 
+
 //if arrays include?
 /*General Event Information:
 *Title: Mother, Couch - äiti sohvalla
