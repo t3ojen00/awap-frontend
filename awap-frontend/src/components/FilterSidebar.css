@@ -1,3 +1,5 @@
+/* this component doesn't quite work with the footer yet */
+
 /* Sidebar layout and styling */
 .filter-sidebar {
     position: fixed;
@@ -5,6 +7,8 @@
     left: 0;
     width: 250px;
     height: 100vh;
+    /*max-height: calc(100vh - 50px);*/
+    /*overflow-y: auto;*/
     padding: 30px; /* Increased padding for more space inside the sidebar */
     background-color: #f8f9fa;
     border-right: 1px solid #ddd;
