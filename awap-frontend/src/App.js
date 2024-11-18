@@ -1,9 +1,11 @@
+import React from 'react';
 import './App.css';
+import MovieSearchXml from './MovieSearchXml';
 
 function App() {
   return (
-    <div>
-<h1>hello!</h1>
+    <div className="App">
+      <MovieSearchXml/>
     </div>
   );
 }
