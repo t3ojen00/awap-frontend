@@ -1,10 +1,14 @@
-import React from 'react';
-import './App.css';
-import MovieSearchXml from './MovieSearchXml';
-import Footer from './components/footer/Footer';
-import Header from './components/header/Header';
-import Showtimes from './components/showtimes/Showtimes';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from "react";
+import "./App.css";
+import MovieSearchXml from "./MovieSearchXml";
+import Footer from "./components/footer/Footer";
+import Header from "./components/header/Header";
+import Showtimes from "./components/showtimes/Showtimes";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthProvider from "./contexts/authContext";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
+import { Toaster } from "react-hot-toast";
 
 // add the proper routes for each page
 // createBroserRouter and so on which were used in the todo assignment
@@ -22,19 +26,25 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Header></Header>
+    <AuthProvider>
+      <Toaster />
+
+      <div className="App">
         <BrowserRouter>
+          <Header></Header>
           <div className="page-content">
             <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/showtimes" element={<Showtimes />} />
-              <Route path="/search" element={<MovieSearchXml/>}></Route>
+              <Route path="/search" element={<MovieSearchXml />}></Route>
             </Routes>
-          </div>  
+          </div>
         </BrowserRouter>
-      <Footer></Footer>  
-    </div>
+        <Footer></Footer>
+      </div>
+    </AuthProvider>
   );
 }
 
-export default App; 
+export default App;
