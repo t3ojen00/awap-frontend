@@ -8,6 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthProvider from "./contexts/authContext";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import Logout from "./pages/logout";
+import Delete from "./pages/delete";
 import { Toaster } from "react-hot-toast";
 import ShowtimePage from "./components/showtimes/showtimePage";
 
@@ -37,6 +39,8 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/delete/:id" element={<Delete />} />
               <Route path="/showtimes" element={<Showtimes />} />
               <Route path="/showtime/:id" element={<ShowtimePage />} />
               <Route path="/search" element={<MovieSearchXml />}></Route>

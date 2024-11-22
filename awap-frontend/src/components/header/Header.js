@@ -15,6 +15,14 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const handleLogout = () => {
+    logout();
+    toast.success("Logged out successfully!");
+    navigate("/login");
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -48,7 +56,8 @@ export default function Header() {
             <a href="#">About Us</a>
           </li>
           <li>{loading && <button className="nav-btn">Loading...</button>}</li>
-          {!loading && user && (
+
+          {/* {!loading && user && (
             <li>
               <button
                 onClick={() => {
@@ -59,6 +68,28 @@ export default function Header() {
               >
                 Log Out
               </button>
+            </li>
+          )} */}
+          {!loading && user && (
+            <li className="profile-icon">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPjLlc8_9N9l9qB0fPxZSGMtF4mfEr68qusA&s" // Replace with user profile image
+                alt="User Profile"
+                onClick={toggleDropdown}
+              />
+              {isDropdownOpen && (
+                <div className="dropdown-menu">
+                  <button onClick={handleLogout} className="dropdown-btn">
+                    Logout
+                  </button>
+                  <button
+                    onClick={() => navigate(`/delete/${user.id}`)}
+                    className="dropdown-btn"
+                  >
+                    Delete Account
+                  </button>
+                </div>
+              )}
             </li>
           )}
 
