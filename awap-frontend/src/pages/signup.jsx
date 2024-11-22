@@ -23,7 +23,6 @@ const Signup = () => {
         return "Sign up successful!";
       },
       error: (d) => {
-        console.log(d);
         return d.response.data.error;
       },
     });

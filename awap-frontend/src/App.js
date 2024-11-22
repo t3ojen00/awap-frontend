@@ -9,6 +9,7 @@ import AuthProvider from "./contexts/authContext";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import { Toaster } from "react-hot-toast";
+import ShowtimePage from "./components/showtimes/showtimePage";
 
 // add the proper routes for each page
 // createBroserRouter and so on which were used in the todo assignment
@@ -37,6 +38,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/showtimes" element={<Showtimes />} />
+              <Route path="/showtime/:id" element={<ShowtimePage />} />
               <Route path="/search" element={<MovieSearchXml />}></Route>
             </Routes>
           </div>
