@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>My Group</h1>
+            <button class="btn danger" id="delete-group">Delete Group</button>
+        </header>
+
+        <!-- Group Information Section -->
+        <section class="group-info">
+            <h2>Group Actions</h2>
+            <button class="btn primary" id="create-group">Create Group</button>
+            <button class="btn secondary" id="invite-member">Invite Members</button>
+            <button class="btn secondary" id="leave-group">Leave Group</button>
+            <button class="btn chat" onclick="location.href='chat.html'">Chat</button>
+            <button class="btn share-movie" id="share-movie">Share a Movie</button>
+        </section>
+
+        <!-- Member Management Section -->
+        <section class="member-management">
+            <h2>Members</h2>
+            <ul class="member-list">
+                <li>
+                    <span>John Doe</span>
+                    <button class="btn edit" onclick="location.href='edit-members.html'">Edit</button>
+                </li>
+                <li>
+                    <span>Jane Smith</span>
+                    <button class="btn edit" onclick="location.href='edit-members.html'">Edit</button>
+                </li>
+                <li>
+                    <span>Mike Johnson</span>
+                    <button class="btn edit" onclick="location.href='edit-members.html'">Edit</button>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Join Requests Section -->
+        <section class="join-requests">
+            <h2>Join Requests</h2>
+            <ul class="request-list">
+                <li>
+                    <span>Anna Lee</span>
+                    <button class="btn accept">Accept</button>
+                    <button class="btn reject">Reject</button>
+                </li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
