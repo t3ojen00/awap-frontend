@@ -38,19 +38,19 @@ export default function Header() {
         </button>
         <nav className={`menu ${isMenuOpen ? "open" : ""}`}>
           <li>
-            <a href="#">Home</a>
+            <a href="/">Home</a>
           </li>
           <li>
-            <a href="#">Search</a>
+            <a href="/search">Search</a>
           </li>
           <li>
-            <a href="#">Showtimes</a>
+            <a href="/showtimes">Showtimes</a>
           </li>
           <li>
-            <a href="#">Favourites</a>
+            <a href="">Favourites</a>
           </li>
           <li>
-            <a href="#">Groups</a>
+            <a href="/groups">Groups</a>
           </li>
           <li>
             <a href="#">About Us</a>
