@@ -13,6 +13,14 @@ import Delete from "./pages/delete";
 import { Toaster } from "react-hot-toast";
 import ShowtimePage from "./components/showtimes/showtimePage";
 
+import Home from "./components/home/Home";
+import GroupPageGeneral from "./components/groups/groupsPageGeneral";
+
+import TheaterShowtimes from "./components/footer/TheaterShowtimes";
+
+// Ha add: discuss more about add showtime to home or not??
+import MovieShowtimes from "./components/home/MovieShowtimes";
+
 // add the proper routes for each page
 // createBroserRouter and so on which were used in the todo assignment
 
@@ -37,6 +45,7 @@ function App() {
           <Header></Header>
           <div className="page-content">
             <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/logout" element={<Logout />} />
@@ -44,6 +53,18 @@ function App() {
               <Route path="/showtimes" element={<Showtimes />} />
               <Route path="/showtime/:id" element={<ShowtimePage />} />
               <Route path="/search" element={<MovieSearchXml />}></Route>
+
+              <Route path="/groups" element={<GroupPageGeneral />} />
+              <Route
+                path="/showtime_footer/:theaterId"
+                element={<TheaterShowtimes />}
+              />
+
+              {/* Ha add: discuss more about add showtime to home or not?? Not finish css */}
+              <Route
+                path="/showtimes_home/:movieName"
+                element={<MovieShowtimes />}
+              />
             </Routes>
           </div>
         </BrowserRouter>
