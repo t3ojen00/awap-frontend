@@ -100,25 +100,23 @@ export default function Showtimes() {
         selectedTheatres={selectedTheatres}
         onFilterChange={setSelectedTheatres}
       />
-      <div className="showtimes-container">
-        <h1>Showtimes</h1>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <div className="showtimes">
-            {filteredShowtimes.map((show, index) => (
-              <Showtime
-                key={index}
-                id={show.showId}
-                title={show.title}
-                theatre={show.theatre}
-                startTime={show.startTime}
-                picture={show.picture}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      <h1>Showtimes</h1>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="showtimes">
+          {filteredShowtimes.map((show, index) => (
+            <Showtime
+              key={index}
+              id={show.showId}
+              title={show.title}
+              theatre={show.theatre}
+              startTime={show.startTime}
+              picture={show.picture}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

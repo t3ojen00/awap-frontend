@@ -117,6 +117,10 @@ const ShowtimePage = () => {
         <strong>Presentation:</strong> {showDetails.presentation}
       </p>
       <button
+        style={{
+          maxWidth: "40%",
+          marginTop: "20px",
+        }}
         onClick={() => {
           const shareUrl = `${window.location.origin}/showtime/${id}`;
           navigator.clipboard.writeText(shareUrl);
