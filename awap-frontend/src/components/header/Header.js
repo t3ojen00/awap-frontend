@@ -53,7 +53,7 @@ export default function Header() {
             <a href="/groups">Groups</a>
           </li>
           <li>
-            <a href="#">About Us</a>
+            <a href="/aboutus">About Us</a>
           </li>
           <li>{loading && <button className="nav-btn">Loading...</button>}</li>
 
