@@ -20,6 +20,7 @@ import TheaterShowtimes from "./components/footer/TheaterShowtimes";
 
 // Ha add: discuss more about add showtime to home or not??
 import MovieShowtimes from "./components/home/MovieShowtimes";
+import AboutUs from "./components/aboutus/AboutUs";
 
 // add the proper routes for each page
 // createBroserRouter and so on which were used in the todo assignment
@@ -55,6 +56,7 @@ function App() {
               <Route path="/search" element={<MovieSearchXml />}></Route>
 
               <Route path="/groups" element={<GroupPageGeneral />} />
+              <Route path="/aboutus" element={<AboutUs/>}></Route>
               <Route
                 path="/showtime_footer/:theaterId"
                 element={<TheaterShowtimes />}
