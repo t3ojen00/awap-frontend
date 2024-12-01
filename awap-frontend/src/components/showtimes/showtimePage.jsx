@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
+//import ReviewComponent from "../reviews/reviews";
+//import RatingComponent from "../reviews/rating";
+import apiClient from '../../lib/api'; 
 
 const ShowtimePage = () => {
   const { id } = useParams();
   const [showDetails, setShowDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState("");
+  const [userRating, setUserRating] = useState(0);
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -52,6 +58,46 @@ const ShowtimePage = () => {
 
     fetchShowDetails();
   }, [id]);
+
+  if (loading) {
+    return <div>Loading show details...</div>;
+  }
+
+  if (!showDetails) {
+    return <div>Show details not available.</div>;
+  }
+
+  const handleReviewSubmit = async () => {
+    if (!newReview || userRating === 0) {
+      toast.error("Please provide a review and a rating!");
+      return;
+    }
+
+    try {
+      // Here you can send the review and rating to your API
+      const response = await apiClient.post(`/showtime/${id}/reviews`, {
+        review: newReview,
+        rating: userRating,
+      });
+
+      // Assuming the response returns the updated reviews list
+      setReviews(response.data.reviews);
+      setNewReview("");
+      setUserRating(0);
+      toast.success("Review added successfully!");
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      toast.error("Failed to submit review.");
+    }
+  };
+
+  const handleRatingChange = (newRating) => {
+    setUserRating(newRating);
+  };
+
+  const handleReviewChange = (event) => {
+    setNewReview(event.target.value);
+  };
 
   if (loading) {
     return <div>Loading show details...</div>;
@@ -116,6 +162,74 @@ const ShowtimePage = () => {
       <p>
         <strong>Presentation:</strong> {showDetails.presentation}
       </p>
+      
+      {/* Rating and Review Section */}
+      <div style={{ marginTop: "30px", width: "80%", textAlign: "center" }}>
+        <h3>Submit Your Review and Rating</h3>
+        <div>
+          <label>
+            Rating:
+            <input
+              type="number"
+              value={userRating}
+              min="1"
+              max="5"
+              onChange={(e) => handleRatingChange(parseInt(e.target.value))}
+              style={{
+                width: "50px",
+                marginLeft: "10px",
+                fontSize: "1.2em",
+                textAlign: "center",
+              }}
+            />
+          </label>
+        </div>
+        <textarea
+          value={newReview}
+          onChange={handleReviewChange}
+          placeholder="Write your review here"
+          style={{
+            width: "100%",
+            height: "100px",
+            marginTop: "10px",
+            padding: "10px",
+            fontSize: "1.2em",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+          }}
+        />
+        <button
+          onClick={handleReviewSubmit}
+          style={{
+            marginTop: "10px",
+            padding: "10px 20px",
+            fontSize: "1.2em",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Submit Review
+        </button>
+      </div>
+
+      {/* Reviews List */}
+      <div style={{ marginTop: "30px", width: "80%" }}>
+        <h3>Reviews</h3>
+        {reviews.length > 0 ? (
+          reviews.map((review, index) => (
+            <div key={index} style={{ marginBottom: "20px" }}>
+              <p><strong>Rating:</strong> {review.rating}</p>
+              <p>{review.review}</p>
+            </div>
+          ))
+        ) : (
+          <p>No reviews yet.</p>
+        )}
+      </div>
+
       <button
         style={{
           maxWidth: "40%",
