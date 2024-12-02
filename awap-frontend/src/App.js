@@ -12,6 +12,7 @@ import Logout from "./pages/logout";
 import Delete from "./pages/delete";
 import { Toaster } from "react-hot-toast";
 import ShowtimePage from "./components/showtimes/showtimePage";
+import GroupForum from "./components/forum/GroupForum";
 
 import Home from "./components/home/Home";
 import GroupPageGeneral from "./components/groups/groupsPageGeneral";
@@ -56,6 +57,7 @@ function App() {
               <Route path="/search" element={<MovieSearchXml />}></Route>
 
               <Route path="/groups" element={<GroupPageGeneral />} />
+              <Route path="/forum/:id" element={<GroupForum />} />
               <Route path="/aboutus" element={<AboutUs/>}></Route>
               <Route
                 path="/showtime_footer/:theaterId"
