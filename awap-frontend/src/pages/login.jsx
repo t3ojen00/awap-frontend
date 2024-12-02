@@ -55,7 +55,7 @@ const Login = () => {
             required
           />
           <span onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? <Visibility /> : <VisibilityOff />}
+            {showPassword ? <VisibilityOff /> : <Visibility />}
           </span>
         </div>
         <button className="btn btn-primary" type="submit">
