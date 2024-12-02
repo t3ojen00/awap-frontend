@@ -1,33 +1,36 @@
 import React, { useState, useEffect } from "react";
-import "./groupsPageGeneral.css";
-// import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import apiClient from "../../lib/api";
+import { useNavigate } from "react-router-dom";
+import "./groupsPageGeneral.css";
 
-const GroupsPageGeneral = () => {
+const YourGroups = () => {
   const [groups, setGroups] = useState([]);
+  const token = localStorage.getItem("authToken");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchGroups = async () => {
+    const fetchYourGroups = async () => {
       try {
-        const response = await apiClient.get("groups/all");
-        console.log(response.data);
-        setGroups(response.data);
+        const response = await apiClient.get("groups/your-groups", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setGroups(response.data.groups);
       } catch (err) {
-        console.error("Failed to fetch groups:", err);
-        alert("Failed to fetch groups. Please try again later.");
+        console.error("Error fetching your groups:", err);
+        alert("Failed to fetch your groups. Please try again later.");
       }
     };
 
-    fetchGroups();
-  }, []);
+    fetchYourGroups();
+  }, [token]);
 
   return (
     <div className="groups-page-general">
-      {/* Navbar */}
       <nav className="navbar">
-        <h1>Groups</h1>
+        <h1>Your Groups </h1>
         <div className="navbar-buttons">
           <button
             className="btn create-group"
@@ -35,20 +38,13 @@ const GroupsPageGeneral = () => {
           >
             Create Group
           </button>
-          <button
-            className="btn your-groups"
-            onClick={() => navigate("/yourGroup")}
-          >
-            Your Groups
-          </button>
         </div>
       </nav>
-
       <table className="groups-table">
         <thead>
           <tr>
             <th>Group Name</th>
-            <th>Owner Email</th>
+            <th>Your role</th>
             <th>Created At</th>
           </tr>
         </thead>
@@ -61,7 +57,7 @@ const GroupsPageGeneral = () => {
                 style={{ cursor: "pointer" }}
               >
                 <td>{group.group_name}</td>
-                <td>{group.owner_name}</td>
+                <td>{group.role}</td>
                 <td>{new Date(group.created_at).toLocaleDateString()}</td>
               </tr>
             ))
@@ -78,4 +74,4 @@ const GroupsPageGeneral = () => {
   );
 };
 
-export default GroupsPageGeneral;
+export default YourGroups;

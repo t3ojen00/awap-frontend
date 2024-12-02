@@ -4,12 +4,14 @@ import "./auth.css"; // Ensure you have the correct path to your app.css file
 import api from "../lib/api";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Login = () => {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -44,13 +46,18 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="password-container">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <span onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <Visibility /> : <VisibilityOff />}
+          </span>
+        </div>
         <button className="btn btn-primary" type="submit">
           Log In
         </button>

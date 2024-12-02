@@ -43,7 +43,7 @@ export default function () {
             <h4>Community</h4>
             <ul>
               <li>
-                <a href="">About Us</a>
+                <a href="/aboutus">About Us</a>
               </li>
               <li>
                 <a href="/groups">Groups</a>

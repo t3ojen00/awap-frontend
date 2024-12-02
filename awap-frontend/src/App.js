@@ -19,9 +19,11 @@ import GroupPageGeneral from "./components/groups/groupsPageGeneral";
 
 import TheaterShowtimes from "./components/footer/TheaterShowtimes";
 
-// Ha add: discuss more about add showtime to home or not??
 import MovieShowtimes from "./components/home/MovieShowtimes";
 import AboutUs from "./components/aboutus/AboutUs";
+import Creategroup from "./components/groups/Creategroup";
+import GroupPage from "./components/groups/groupsPage";
+import YourGroups from "./components/groups/yourGroups";
 
 // add the proper routes for each page
 // createBroserRouter and so on which were used in the todo assignment
@@ -56,19 +58,24 @@ function App() {
               <Route path="/showtime/:id" element={<ShowtimePage />} />
               <Route path="/search" element={<MovieSearchXml />}></Route>
 
-              <Route path="/groups" element={<GroupPageGeneral />} />
               <Route path="/forum/:id" element={<GroupForum />} />
-              <Route path="/aboutus" element={<AboutUs/>}></Route>
+              <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route
                 path="/showtime_footer/:theaterId"
                 element={<TheaterShowtimes />}
               />
 
-              {/* Ha add: discuss more about add showtime to home or not?? Not finish css */}
+              {/* Ha add: Not finish css */}
               <Route
                 path="/showtimes_home/:movieName"
                 element={<MovieShowtimes />}
               />
+              {/* Group Pages */}
+              <Route path="/groups" element={<GroupPageGeneral />} />
+              <Route path="/groupPage/:groupId" element={<GroupPage />} />
+              <Route path="/createGroup" element={<Creategroup />} />
+              <Route path="/groupPage/:group_name" element={<GroupPage />} />
+              <Route path="/yourGroup" element={<YourGroups />} />
             </Routes>
           </div>
         </BrowserRouter>
