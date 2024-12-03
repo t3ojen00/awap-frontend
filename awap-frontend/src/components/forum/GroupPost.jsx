@@ -50,12 +50,13 @@ export default function GroupPost({ postId, userImage, userName, date, comment, 
       {isEditing ? (
           <div>
             <textarea
+              className="editing-textarea"
               value={editedComment}
               onChange={handleChange}
               rows="4"
               cols="50"
             />
-            <div>
+            <div className="editing-button">
               <button onClick={handleSaveEdit}>Save</button>
               <button onClick={handleCancelEdit}>Cancel</button>
             </div>

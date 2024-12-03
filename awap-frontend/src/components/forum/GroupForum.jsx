@@ -25,13 +25,13 @@ export default function GroupForum() {
         const response = await apiClient.get(`/forum/${id}`);
 
         const mappedPosts = response.data.map(post => ({
-            id: post.post_id, 
+            id: post.message_id, 
             userId: post.user_id,
             groupId: post.group_id,
             userImage: 'path_to_default_image', // if we want to add a user image
             userName: 'User Name', // if we want a username
-            date: format(new Date(post.created_at), 'dd.MM.yyyy \'at\' HH:mm'), 
-            comment: post.content, 
+            date: format(new Date(post.timestamp), 'dd.MM.yyyy \'at\' HH:mm'), 
+            comment: post.message, 
         }));
 
         setPosts(mappedPosts); // add these posts to the posts state
@@ -59,7 +59,7 @@ export default function GroupForum() {
   const handleEditPost = async (id, updatedComment) => {
     try {
       // send the updated comment to the server via PUT
-      await apiClient.put(`/forum/${id}`, { content: updatedComment });
+      await apiClient.put(`/forum/${id}`, { message: updatedComment });
 
       // update the post in the local state
       setPosts(posts.map(post =>
