@@ -3,7 +3,8 @@ import "./MovieSearchXml.css";
 import FilterSidebar from "./components/FilterSidebar";
 import MovieCard from "./components/MovieCard";
 import { useLocation } from "react-router-dom"; //add for footer link
-
+import apiClient from "../src/lib/api";
+import { toast } from "react-hot-toast";
 function MovieSearchXml() {
   const location = useLocation(); //add for footer link
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,6 +29,7 @@ function MovieSearchXml() {
         const parser = new DOMParser();
         const xml = parser.parseFromString(data, "application/xml");
         const events = Array.from(xml.getElementsByTagName("Event"));
+
         const movies = events.map((event) => ({
           id: event.querySelector("ID")?.textContent,
           title: event.querySelector("Title")?.textContent,
@@ -90,6 +92,7 @@ function MovieSearchXml() {
               <button onClick={() => setSelectedMovie(null)}>
                 Back to List
               </button>
+              <FavouriteButton movieId={selectedMovie.id} />
               <h2>
                 {selectedMovie.title} ({selectedMovie.productionYear})
               </h2>
@@ -129,3 +132,23 @@ function MovieSearchXml() {
 }
 
 export default MovieSearchXml;
+
+const FavouriteButton = ({ movieId }) => {
+  return (
+    <button
+      onClick={async () => {
+        toast.promise(apiClient.post("/favorites/add", { movie_id: movieId }), {
+          pending: "Adding to favorites...",
+          success: "Added to favorites!",
+          error: "Error adding to favorites!",
+        });
+      }}
+      style={{
+        backgroundColor: "#007bff",
+        marginLeft: "10px",
+      }}
+    >
+      Favourite
+    </button>
+  );
+};

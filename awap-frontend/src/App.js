@@ -24,7 +24,7 @@ import AboutUs from "./components/aboutus/AboutUs";
 import Creategroup from "./components/groups/Creategroup";
 import GroupPage from "./components/groups/groupsPage";
 import YourGroups from "./components/groups/yourGroups";
-
+import FavouritePage from "./pages/favourites";
 // add the proper routes for each page
 // createBroserRouter and so on which were used in the todo assignment
 
@@ -55,6 +55,8 @@ function App() {
               <Route path="/logout" element={<Logout />} />
               <Route path="/delete/:id" element={<Delete />} />
               <Route path="/showtimes" element={<Showtimes />} />
+              <Route path="/favourite" element={<FavouritePage />} />
+
               <Route path="/showtime/:id" element={<ShowtimePage />} />
               <Route path="/search" element={<MovieSearchXml />}></Route>
 

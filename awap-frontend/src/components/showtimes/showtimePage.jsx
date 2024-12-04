@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 //import ReviewComponent from "../reviews/reviews";
 //import RatingComponent from "../reviews/rating";
-import apiClient from '../../lib/api'; 
+import apiClient from "../../lib/api";
 
 const ShowtimePage = () => {
   const { id } = useParams();
@@ -162,7 +162,7 @@ const ShowtimePage = () => {
       <p>
         <strong>Presentation:</strong> {showDetails.presentation}
       </p>
-      
+
       {/* Rating and Review Section */}
       <div style={{ marginTop: "30px", width: "80%", textAlign: "center" }}>
         <h3>Submit Your Review and Rating</h3>
@@ -221,7 +221,9 @@ const ShowtimePage = () => {
         {reviews.length > 0 ? (
           reviews.map((review, index) => (
             <div key={index} style={{ marginBottom: "20px" }}>
-              <p><strong>Rating:</strong> {review.rating}</p>
+              <p>
+                <strong>Rating:</strong> {review.rating}
+              </p>
               <p>{review.review}</p>
             </div>
           ))
