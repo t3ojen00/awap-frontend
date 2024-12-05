@@ -48,7 +48,7 @@ const GroupsPageGeneral = () => {
         <thead>
           <tr>
             <th>Group Name</th>
-            <th>Owner Email</th>
+            <th>Owner</th>
             <th>Created At</th>
           </tr>
         </thead>
