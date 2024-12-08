@@ -18,6 +18,7 @@ const GroupPage = () => {
   const [isMember, setIsMember] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isInvited, setIsInvited] = useState(false);
+  const [invitedUserName, setInvitedUserName] = useState("");
   const [joinRequests, setJoinRequests] = useState([]);
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,39 +28,65 @@ const GroupPage = () => {
   useEffect(() => {
     const fetchGroupDetails = async () => {
       try {
-        // Fetch group data
+        // Fetch group metadata
         const response = await apiClient.get(`/groups/all/${groupId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setGroup(response.data);
 
-        // Fetch membership status
+        // Fetch membership details
         const membershipResponse = await apiClient.get(
           `/groups/${groupId}/role`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
-        console.log("Membership Response:", membershipResponse.data);
-
         setIsMember(membershipResponse.data.isMember);
         setIsInvited(membershipResponse.data.isInvited);
         setIsAdmin(membershipResponse.data.role === "admin");
 
-        // If admin, fetch join requests
+        // Fetch join requests if admin
         if (membershipResponse.data.role === "admin") {
           const requestsResponse = await apiClient.get(
-            `/groups/${groupId}/join-requests`,
+            `/groups/${groupId}/member-requests`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setJoinRequests(requestsResponse.data || []);
         }
 
+        // Fetch invitations if invited
+        // if (membershipResponse.data.isInvited) {
+        //   const invitationsResponse = await apiClient.get(
+        //     `/groups/${groupId}/member-invitated`,
+        //     { headers: { Authorization: `Bearer ${token}` } }
+        //   );
+        //   if (invitationsResponse.data) {
+        //     setIsInvited(true);
+        //   }
+        // }
+
+        if (membershipResponse.data.isInvited) {
+          const invitationsResponse = await apiClient.get(
+            `/groups/${groupId}/member-invitated`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+        
+          console.log("Invitation Response:", invitationsResponse.data); // Debugging
+          if (invitationsResponse.data) {
+            setIsInvited(true); // Set `isInvited` to true
+            setInvitedUserName(invitationsResponse.data.user_name); // Set `user_name` from the response
+          }
+        }
+        
+        
+
         // Fetch group members
-        const membersResponse = await apiClient.get(`/groups/${groupId}/members`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const membersResponse = await apiClient.get(
+          `/groups/${groupId}/members`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         setMembers(membersResponse.data);
       } catch (err) {
+        console.error(err);
         toast.error("Failed to fetch group details.");
       } finally {
         setLoading(false);
@@ -69,7 +96,6 @@ const GroupPage = () => {
     fetchGroupDetails();
   }, [groupId, token]);
 
-  // Handle group deletion
   const handleDeleteGroup = async () => {
     try {
       await apiClient.delete(`/groups/delete/${groupId}`, {
@@ -98,30 +124,49 @@ const GroupPage = () => {
     }
   };
 
+  const handleRespondToInvite = async (response) => {
+    try {
+      const res = await apiClient.post(
+        `/groups/${groupId}/respond`,
+        { response },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (res.status === 200) {
+        if (response === "accept") {
+          setIsMember(true);
+          setIsInvited(false);
+          toast.success("You have successfully joined the group.");
+        } else if (response === "reject") {
+          setIsInvited(false);
+          toast.success("You have rejected the invitation.");
+        }
+      }
+    } catch (error) {
+      console.error("Error responding to invitation:", error);
+      toast.error("Failed to respond to the invitation.");
+    }
+  };
+
   return (
     <div className="group-page container">
-
-      {/* Group Header */}
       <GroupHeader
         group={group}
         isAdmin={isAdmin}
         onDeleteGroup={handleDeleteGroup}
       />
 
-       {/* Group Actions */}
-       <button
+      <button
         className="btn chat"
-        onClick={() => (window.location.href = "chat.html")}>
+        onClick={() => (window.location.href = "chat.html")}
+      >
         Chat
       </button>
-
       <button className="btn share-movie" id="share-movie">
         Share a Movie
       </button>
- {/* Group Actions */}
-      
+
       <section className="group-info">
-       
         <GroupActions
           isAdmin={isAdmin}
           isMember={isMember}
@@ -132,40 +177,52 @@ const GroupPage = () => {
           setIsMember={setIsMember}
           setIsInvited={setIsInvited}
         />
-
         <MemberManagement
               members={members}
               isAdmin={isAdmin}
               handleDeleteMember={handleDeleteMember}
             />
 
-        {/* Member Management (for Admins only) */}
         {isAdmin && (
-          <>
-           
-            <JoinRequests
-              joinRequests={joinRequests}
-              groupId={groupId}
-              token={token}
-              setJoinRequests={setJoinRequests}
-              setMembers={setMembers}
-            />
-          </>
+          <JoinRequests
+            joinRequests={joinRequests}
+            groupId={groupId}
+            token={token}
+            setJoinRequests={setJoinRequests}
+            setMembers={setMembers}
+          />
         )}
 
-        {/* Invite Modal */}
-      {showInviteModal && (
-        <InviteModal
-          groupId={groupId}
-          token={token}
-          setShowInviteModal={setShowInviteModal}
-        />
-      )}
+{!isAdmin && isInvited && (
+  <div className="invitation-response">
+    <h2 className="invitation-title">You have been invited to join this group, {invitedUserName}!</h2>
+    <div className="invitation-buttons">
+      <button
+        className="btn accept"
+        onClick={() => handleRespondToInvite("accept")}
+      >
+        Accept
+      </button>
+      <button
+        className="btn reject"
+        onClick={() => handleRespondToInvite("reject")}
+      >
+        Reject
+      </button>
+    </div>
+  </div>
+)}
 
-       
+
+
+        {showInviteModal && (
+          <InviteModal
+            groupId={groupId}
+            token={token}
+            setShowInviteModal={setShowInviteModal}
+          />
+        )}
       </section>
-
-      
     </div>
   );
 };

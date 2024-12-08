@@ -12,7 +12,7 @@ const GroupsPageGeneral = () => {
     const fetchGroups = async () => {
       try {
         const response = await apiClient.get("groups/all");
-        console.log(response.data);
+        // console.log(response.data);
         setGroups(response.data);
       } catch (err) {
         console.error("Failed to fetch groups:", err);

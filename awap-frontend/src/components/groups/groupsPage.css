@@ -212,3 +212,64 @@
   background-color: #c82333;
 }
 
+/* Invitation Response Section */
+.group-page .invitation-response {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Invitation Title */
+.group-page .invitation-response .invitation-title {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Buttons Section */
+.group-page .invitation-response .invitation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Accept and Reject Buttons */
+.group-page .invitation-response .btn.accept {
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.group-page .invitation-response .btn.reject {
+  background-color: #dc3545;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+/* Hover Effects */
+.group-page .invitation-response .btn.accept:hover {
+  background-color: #218838;
+}
+
+.group-page .invitation-response .btn.reject:hover {
+  background-color: #c82333;
+}
+@media (max-width: 600px) {
+  .group-page .invitation-response .invitation-buttons {
+    flex-direction: column;
+  }
+
+  .group-page .invitation-response .btn.accept,
+  .group-page .invitation-response .btn.reject {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
