@@ -5,6 +5,7 @@ import MovieCard from "./components/MovieCard";
 import { useLocation } from "react-router-dom"; //add for footer link
 import apiClient from "../src/lib/api";
 import { toast } from "react-hot-toast";
+import RatingReview from "./components/showtimes/ratingreview";
 function MovieSearchXml() {
   const location = useLocation(); //add for footer link
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,6 +13,7 @@ function MovieSearchXml() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [moviesData, setMoviesData] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [reviews, setReviews] = useState([]);
 
   // Extract genre from URL query parameters for footer link
   useEffect(() => {
@@ -106,6 +108,12 @@ function MovieSearchXml() {
                   </li>
                 ))}
               </ul>
+                            {/* Rating and Review Section */}
+                            <RatingReview
+                showId={selectedMovie.id} // Pass the movie ID
+                reviews={reviews} // Pass the reviews state
+                setReviews={setReviews} // Pass the setter for reviews
+              />
             </div>
           ) : (
             <div className="movie-card-container">

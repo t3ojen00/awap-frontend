@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import apiClient from "../../lib/api"; // Assuming apiClient is in utils
+import apiClient from "../../lib/api"; 
 
 const ReviewComponent = ({ movieId, loggedInUser }) => {
   const [reviewText, setReviewText] = useState("");
